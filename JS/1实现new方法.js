@@ -1,26 +1,20 @@
-// 继承
-/**
- * JS对象的继承主要靠原型链来实现
- */
+/* 
+  实现new方法
+  1、创建一个新对象
+  2、新对象的__proto__指向构造函数的prototype
+  3、新对象作为构造函数的上下文（改变this指向）
+  4、对构造函数有返回值的判断处理
+*/
 
-function Fn(a, b) {
-  this.a = a
-  this.b = b
+function MyNew() {
+  // 1创建新对象
+  let obj = new Object()
+  // 2获取传入构造函数
+  let Constructor = [].shift.call(arguments)
+  // 3新对象原型链指向构造函数的原型对象
+  obj.__proto__ = Constructor.prototype
+  // 4给更改构造函数的上下文，更新this指向，获取返回结果，并为新对象添加构造函数属性
+  const res = Constructor.apply(obj, arguments)
+  // 5判断构造函数返回结果是否为非null对象，是的话直接返回，不是返回新对象
+  return typeof res === 'object' && res !== null ? res : obj
 }
-Fn.prototype.con = function() {
-  console.info(this.a, this.b)
-}
-// let obj = new Fn(1, 3)
-// console.info(obj)
-
-function myNew() {
-  let constructor = [].shift.call(arguments),
-    obj = new Object()
-    obj.__proto__ = constructor.prototype
-  constructor.apply(obj, arguments) // obj截取原对象的方法，继承原对象的属性
-  console.info(obj.__proto__ , obj, 'con')
-  return obj
-}
-
-let obj = myNew(Fn, 3, 2)
-console.info(obj, 'obj')
