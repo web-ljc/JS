@@ -27,5 +27,52 @@
         - 打包指令：browserify js/app.js -o dist/bundle.js
 
   - AMD
+    + 规范
+      - 专门用于浏览器端，模块的加载是异步的
+    + 基本语法 
+      - 暴露模块
+        - 没有依赖的模块 define(function() { return 模块 })
+        - 有依赖的模块 define(['m1', 'm2'], function(m1, m2) {return 模块})
+      - 引用模块
+        - require(['m1', 'm2'], function(m1, m2) {使用m1/m2})
+      ```js
+        // js/modules/define2.js
+        define(['defineFn', 'jquery'], function(defineFn, $) {
+          let msg = 'defineMsg'
+          function showMsg() {
+            console.info(msg, defineFn.getName(), $('#btn'))
+          }
+          return { showMsg }
+        })
+        // js/main.js
+        requirejs.config({
+          base: '/js', // 基本路径，出发点在根目录
+          paths: { // 配置路径
+            defineFn: './modules/defineFn',
+            define2: './modules/define2',
+            jquery: './libs/jquery-1.11.1'
+          }
+        })
+
+        requirejs(['define2'], function(define2) {
+          define2.showMsg()
+        })
+      ```
+    + 实现
+      - 浏览器端
+        - Require.js
+        ```js
+          // 引入require文件，并指定入口
+          <script data-main="js/main.js" src="js/libs/require.js"></script>
+        ```
+
+
   - CMD // 阿里内部规范，卖给国外了
   - ES6
+    + 规范
+      - 依赖模块需要编译打包处理
+      - 语法
+        - 导出模块 export
+        - 引入模块 import
+    + 实现
+      - 工具 babel
