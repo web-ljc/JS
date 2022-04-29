@@ -73,6 +73,33 @@
       - 依赖模块需要编译打包处理
       - 语法
         - 导出模块 export
+          ```js
+            // 默认暴露,只能写一个
+            export default function(){}
+            // 按需暴露,按需暴露可以写多个，可以与默认暴露共写
+            export arr = []
+            export str = 'str'
+          ```
         - 引入模块 import
+          ```js
+            // 引入默认暴露
+            import obj from './obj'
+            // 按需暴露，解构引入，可以重命名
+            import {arr as newArr, str} from './obj2'
+            import * as obj2 from './obj2'
+          ```
     + 实现
       - 工具 babel
+        - 定义package.json文件
+        - 安装
+          ```js
+            yarn add @babel/core @babel/cli @babel/preset-env -D
+          ```
+        - 从ES6编译成commonjs格式es5
+          ```js
+            npx babel js/src -d js/lib
+          ```
+        - 处理commonjs模块化
+          ```js
+            browserify js/app.js -o dist/bundle.js
+          ```
