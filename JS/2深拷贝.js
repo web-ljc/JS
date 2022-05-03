@@ -4,20 +4,21 @@
     只拷贝最外边一层
 */
 const obj = {a: 1, b: {c: 2, d: 3}}
-// 1、扩展云算法
+// 1、扩展运算法
 let obj2 = {...obj}
+console.info(obj2, 1)
 // 2、遍历循环
 function myClone(obj) {
   let newObj = new obj.constructor
   for(let key in obj) {
-    if(obj.hasOwnPrototype(key)) {
+    if(obj.hasOwnProperty(key)) {
       newObj[key] = obj[key]
     }
   }
   return newObj
 }
 let obj3 = myClone(obj)
-
+console.info(obj3, 2)
 /*
   JSON方法
   缺陷：
@@ -26,7 +27,7 @@ let obj3 = myClone(obj)
     3. 日期对象转成固定值
 */
 let obj4 = JSON.parse(JSON.stringify(obj))
-
+console.info(obj4, 3)
 /*
   函数式深拷贝
     通过递归方法实现深拷贝
@@ -46,8 +47,8 @@ function deepClone(obj) {
   let newObj = new obj.constructor
   // 遍历属性
   for (let key in obj) {
-    // 拷贝私有属性
-    if(obj.hasOwnPrototype(key)){
+    // 拷贝私有属性，如果存在属性指向当前对象，不进行深拷贝
+    if(obj.hasOwnProperty(key) && obj[key] !== obj){
       newObj[key] = deepClone(obj[key])
     }
   }
@@ -57,4 +58,4 @@ function deepClone(obj) {
 const objs = { a: 123, b: [1, 2, 3]};
 objs.target = objs;
 const result2 = deepClone(objs);
-console.log(result2, 9);
+console.log(result2, objs, 9);
