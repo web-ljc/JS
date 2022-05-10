@@ -47,3 +47,34 @@ console.info('s1 => ',s1)
 s1.speak()
 s1.study()
 
+
+/* 
+  
+*/
+
+class Car {
+  constructor(name, price) {
+    this.name = name
+    this.price = price
+    // 1将原型上的run添加到Car的实例上，并绑定this指向
+    this.run = this.run.bind(this)
+  }
+  // 类中可以直接写赋值语句，给Car的实例对象添加一个对象属性，名为wheel，值为4
+  wheel = 4
+  // 添加到类上边的属性
+  static age = 1990
+  // 方法添加到原型对象上了
+  run() {
+    console.info(this.name)
+  }
+  // 2给Car的实例对象添加一个方法
+  info = () => {
+    console.info(this.price)
+  }
+}
+const c1 = new Car('宝马', 888)
+const c2 = new Car('奥迪', 666)
+console.info(c1)
+console.info(c2)
+console.info(Car.age)
+
