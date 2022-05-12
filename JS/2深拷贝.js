@@ -32,7 +32,7 @@ console.info(obj4, 3)
   函数式深拷贝
     通过递归方法实现深拷贝
 */
-function deepClone(obj) {
+function deepClone(obj, map = new Map()) {
   // null直接返回
   if(obj === null) return null
   // 不是对象返回原值
@@ -45,11 +45,13 @@ function deepClone(obj) {
   if(obj instanceof Date) return new Date(obj)
   // 实例化当前对象的构造函数
   let newObj = new obj.constructor
+  if(map.get(obj)) return map.get(obj)
+  map.set(obj, newObj)
   // 遍历属性
   for (let key in obj) {
     // 拷贝私有属性，如果存在属性指向当前对象，不进行深拷贝
     if(obj.hasOwnProperty(key) && obj[key] !== obj){
-      newObj[key] = deepClone(obj[key])
+      newObj[key] = deepClone(obj[key], map)
     }
   }
   return newObj

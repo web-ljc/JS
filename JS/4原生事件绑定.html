@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn1">按钮1</button>
+  <button id="btn2">按钮2</button>
+  <button onclick="demo(this)">按钮3</button>
+  <script type="text/javascript">
+    
+    const btn1 = document.querySelector('#btn1')
+    btn1.addEventListener('click', function() {
+      console.info('btn1 click', this) // btn1, btn1按钮对象
+    })
+
+    const btn2 = document.getElementById('btn2')
+    btn2.onclick = function() {
+      console.info('btn2 click', this) // btn2， btn2按钮对象
+    }
+
+    function demo(obj) {
+      console.info('btn3 click', obj) // btn3， btn3对象，触发事件将对象传过来
+      console.info('btn3 click', this) // btn3， window对象
+    }
+  </script>
+</body>
+</html>
