@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn1">点击防抖</button>
+  <button id="btn2">点击节流</button>
+  <script>
+    const btn = document.querySelector('#btn1')
+    // 防抖，只执行最后一次
+    let timer = null
+    btn.onclick = function() {
+      // 每次点击，清除上一次的定时，赋值并使用新的定时
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        console.info('发送请求了。。。。')
+      }, 1000)
+    }
+    
+    const btn2 = document.querySelector('#btn2')
+    // 节流，一段时间执行一次
+    let flag = true
+    btn2.onclick = function() {
+      if(flag) {
+        flag = false
+        console.info('发送请求。。。。')
+        setTimeout(() => {
+          flag = true
+        }, 1000)
+      }
+    }
+  </script>
+</body>
+</html>
