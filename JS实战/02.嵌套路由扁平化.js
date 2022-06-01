@@ -54,6 +54,11 @@ const testCase = [
 /**
  * @param {array} data
  * @return {array}
+ * 
+ * 思路：
+ *  1. 定义新数组
+ *  2. for循环数组每一项， routes有数据递归遍历处理， path是数组的话遍历处理
+ *  
  */
 const flattenRoutes = (data = []) => {
   // 定义新数组
