@@ -27,3 +27,27 @@ console.info(obj2, obj === obj2)
 // 合并
 let obj3 = {...obj, name: 'zs'}
 console.info(obj3)
+
+/* 
+  ... 的作用
+  1. 拓展运算符（多用在解构赋值中）
+  2. 展开运算符（多用在传递实参中）
+  3. 剩余运算法（多用在接受实参中）
+*/
+
+// 解构运算符
+// let [n, ...m] = [1, 2, 3]
+// console.log(n, m)// 1 [2, 3]
+
+// 传递实参
+let arr = [1, 2, 3, 4]
+let min = Math.min(...arr)
+console.log(min) // 1
+// 数组克隆（浅克隆）
+let cloneArr = [...arr]
+
+// 接收实参
+let fn = (...args) => {
+  console.log(args)
+}
+fn(10, 20, 30)
