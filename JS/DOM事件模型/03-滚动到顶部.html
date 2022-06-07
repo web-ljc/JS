@@ -1,0 +1,65 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        height: 3000px;
+      }
+      .box {
+        display: none;
+        position: fixed;
+        right: 0;
+        top: 20px;
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+        border: 10px solid #ccc;
+        background: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myDiv" class="box">
+      11
+    </div>
+    <script>
+      let HTML = document.documentElement,
+        LINK = document.getElementById('myDiv')
+      
+      function check() {
+        let scrollT = HTML.scrollTop,
+          winH = HTML.clientHeight
+        LINK.style.display = scrollT > winH * 2 ? 'block' : 'none'
+      }
+      window.onscroll = check
+
+      LINK.onclick = function() {
+        // 点击后隐藏按钮，且滚动事件置空
+        LINK.style.display = 'none'
+        window.onscroll = null
+
+        // 实现动画
+        let setp = 100
+        var timer = setInterval(() => {
+          let curT = HTML.scrollTop
+          if(curT <= 0) {
+            clearInterval(timer)
+            window.onscroll = check // 重新绑定事件
+            return
+          }
+          curT -= setp
+          HTML.scrollTop = curT
+        }, 17)
+      }
+    </script>
+  </body>
+  </html>
