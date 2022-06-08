@@ -10,14 +10,18 @@
   <button id="btn1">按钮1</button>
   <button id="btn2">按钮2</button>
   <button onclick="demo(this)">按钮3</button>
+  <button id="btn4">div4</button>
+  <a id="link" href="https://www.jd.com">超链接跳转</a>
   <script type="text/javascript">
     
     const btn1 = document.querySelector('#btn1')
+    // DOM2 事件池机制存储，基于原型链查找到EventTarget.prototype上方法并且执行
     btn1.addEventListener('click', function() {
       console.info('btn1 click', this) // btn1, btn1按钮对象
     })
 
     const btn2 = document.getElementById('btn2')
+    // DOM0 事件绑定，绑定在元素的onclick属性上
     btn2.onclick = function() {
       console.info('btn2 click', this) // btn2， btn2按钮对象
     }
@@ -27,5 +31,8 @@
       console.info('btn3 click', this) // btn3， window对象
     }
   </script>
+  <!-- <script src="./01-0-DOM事件.js"></script> -->
+  <!-- <script src="./01-1-事件对象.js"></script> -->
+  <script src="./01-2-事件传播机制.js"></script>
 </body>
 </html>
