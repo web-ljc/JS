@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body{
+      height: 100%;
+      overflow: hidden;
+    }
+    #box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      cursor: move;
+    }
+    #header {
+      height: 30px;
+      background-color: antiquewhite;
+    }
+    #container {
+      position: relative;
+      box-sizing: border-box;
+      margin: 20px auto;
+      width: 300px;
+      height: 200px;
+      border: 2px solid lightseagreen;
+    }
+  </style>
+</head>
+<body>
+  <div id="box" draggable="true">
+    <div id="header"></div>
+  </div>
+  <div id="container"></div>
+  
+  <script>
+    box.ondragstart = function(ev) {
+      // DragEvent 拖拽事件对象
+      // dataTransfer(DataTransfer) setData / getData / clearData 设置的内容最后都会变为字符串
+      // setData(类型标识, 对应的值)
+      console.log(ev);
+      // 类型标识：text/plain  text/html ...
+      ev.dataTransfer.setData('text/aa', ev.target.id)
+    }
+    container.ondragover = function(ev) {
+      ev.preventDefault()
+      // console.log(ev.dataTransfer.getData('A'));
+    }
+    container.ondrop = function(ev) {
+      ev.preventDefault()
+      const _ID = ev.dataTransfer.getData('text/aa'),
+        _ELE = document.getElementById(_ID)
+      this.appendChild(_ELE)
+    }
+
+    /* 
+      H5中的drag事件：可以把一个元素从当前位置拖拽到指定的容器中
+        - dragstart
+        - drag
+        - dragend
+        - dragover 拖动元素到指定的目标区域上
+        - drop 可以把拖动元素放到目标区域中了
+      
+      1. 给要拖拽的元素设置可被拖拽 draggable='true'
+      2. 在拖拽开始的时候，记录一些信息。使用dataTransfer原型上的数据处理方法
+    */
+  </script>
+</body>
+</html>

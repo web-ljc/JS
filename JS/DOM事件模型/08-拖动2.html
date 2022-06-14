@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body{
+      height: 100%;
+      overflow: hidden;
+    }
+    #box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      cursor: move;
+    }
+    #header {
+      height: 30px;
+      background-color: antiquewhite;
+    }
+    #container {
+      position: relative;
+      box-sizing: border-box;
+      margin: 20px auto;
+      width: 300px;
+      height: 200px;
+      border: 2px solid lightseagreen;
+    }
+  </style>
+</head>
+<body>
+  <div id="box" draggable="true">
+    <div id="header"></div>
+  </div>
+  <div id="container"></div>
+  
+  <script>
+    const getCss = function(curEle, attr) {
+      return parseFloat(window.getComputedStyle(curEle, null)[attr])
+    }
+    
+    box.ondragstart = function(ev) {
+      this.startX = ev.pageX
+      this.startY = ev.pageY
+      this.startT = getCss(this, 'top')
+      this.startL = getCss(this, 'left')
+    }
+
+    box.ondrag = function(ev) {
+      let curL = ev.pageX - this.startX + this.startL
+      let curT = ev.pageY - this.startY + this.startT
+      let minL = 0,
+        minT = 0,
+        maxL = document.documentElement.clientWidth - this.clientWidth
+        maxT = document.documentElement.clientHeight - this.clientHeight
+      
+      curL = curL < minL ? minL : (curL > maxL ? maxL : curL)
+      curT = curT < minT ? minT : (curT > maxT ? maxT : curT)
+      this.style.left = curL + 'px'
+      this.style.top = curT + 'px'
+    }
+
+    // 拖放时要将拖到的父级容器的默认行为去掉，不然不允许放置
+    document.ondragover = function(ev) {
+      ev.preventDefault()
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body{
+      height: 100%;
+      overflow: hidden;
+    }
+    #box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      cursor: move;
+    }
+    #header {
+      height: 30px;
+      background-color: antiquewhite;
+    }
+    #container {
+      box-sizing: border-box;
+      margin: 20px auto;
+      width: 300px;
+      height: 200px;
+      border: 2px solid lightseagreen;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div id="header"></div>
+  </div>
+  <div id="container"></div>
+  
+  <script>
+    // box.onmousedown = down
+    // 事件绑定在header，this指向box
+    header.addEventListener('mousedown', down.bind(box))
+    function down(ev) {
+      // 把鼠标起始位置信息和盒子起始位置信息存储到盒子的自定义属性上
+      this.startX = ev.pageX
+      this.startY = ev.pageY
+      this.startL = this.offsetLeft
+      this.startT = this.offsetTop
+      // 按下盒子时绑定move、up方法
+      // 谷歌浏览器中解决鼠标焦点丢失的问题（绑定给documnet），但是注意this指向
+      // document.onmousemove = move.bind(this)
+      // document.onmouseup = up.bind(this)
+      // 使用bind改变this指向会返回一个匿名函数，使用DOM2的绑定事件没办法解绑，需要添加到当前对象的属性
+      this._MOVE = move.bind(this)
+      this._UP = up.bind(this)
+      document.addEventListener('mousemove', this._MOVE)
+      document.addEventListener('mouseup', this._UP)
+      
+    }
+    function move(ev) {
+      // 随时获取鼠标当前信息，计算盒子最新的位置
+      let curL = ev.pageX - this.startX + this.startL
+      let curT = ev.pageY - this.startY + this.startT
+      // 边界判断
+      let minL = 0,
+        minT = 0,
+        maxL = document.documentElement.clientWidth - this.clientWidth,
+        maxT = document.documentElement.clientHeight - this.clientHeight
+      curL = curL < minL ? minL : (curL > maxL ? maxL : curL)
+      curT = curT < minT ? minT : (curT > maxT ? maxT : curT)
+      // 赋值
+      this.style.top = curT+'px'
+      this.style.left = curL+'px'
+    }
+    function up(ev) {
+      // 鼠标抬起，解除move、up绑定
+      // document.onmousemove = null
+      // document.onmouseup = null
+      document.removeEventListener('mousemove', this._MOVE)
+      document.removeEventListener('mouseup', this._UP)
+    }
+
+    /*
+      只有谷歌不支持
+      // 把鼠标和当前盒子捆一起
+      this.setCapture()
+      // 把盒子和鼠标解绑
+      this.releaseCapture()
+
+    */
+  </script>
+</body>
+</html>
