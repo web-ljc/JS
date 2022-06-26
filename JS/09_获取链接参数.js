@@ -15,8 +15,24 @@ const myParams = () => {
   return arr
 }
 
-/*
-  编码转译
-  - encodeURIComponent 编码
-  - decodeURIComponent 解码，解析汉字
-*/
+// 基于正则封装
+const queryRULParams = (url) => {
+  let result = {},
+    reg1 = /([^?=&#]+)=([^?=&#]+)/g,
+    reg2 = /#([^?=&#]+)/g
+  url.replace(reg1, (n, x, y) => result[x] = y)
+  url.replace(reg2, (n, x) => result['HASH'] = x)
+  return result
+}
+
+// 随机获取4位数
+const queryCode = () => {
+  let area = 'abcdefg',
+    result = '',
+    i = 0
+  for(; i < 4; i++) {
+    let ran = Math.round(Math.random() * 61)
+    result += area.charAt(ran)
+  }
+  return result
+}
