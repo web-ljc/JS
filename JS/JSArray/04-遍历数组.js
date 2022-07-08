@@ -34,43 +34,148 @@ console.info(arr3, a) // 3
     
     1. forEach
       - 遍历数组中每一项内容
-      - @params 回调函数
-      - @return
-      - 原数组不变
+      - @params
+        1. 回调函数
+          // currentValue 当前元素的值
+          // index        当前元素的索引
+          // array        数组
+        2. 回调函数this指向
+          // thisArg      执行回调函数的this指向
+
+      - @return undefined
+      - 未被赋值的项不会被调用，中途不会停止，除非抛异常
+      - 案例
+        arr.forEach((currentValue, index, array) => {
+          // currentValue 当前元素的值
+          // index        当前元素的索引
+          // array        数组
+          // thisArg      执行回调函数的this指向
+        }, thisArg)
+
 
     2. map
       - 映射
-      - @params 回调函数, 在回调函数中处理逻辑
+      - @params
+        1. 回调函数, 在回调函数中处理逻辑
+          // currentValue 当前元素值
+          // index        当前元素索引
+          // array        当前数组
+        2. 回调函数this指向
+          // thisArg      执行回调函数的this指向
       - @return 返回处理后的新数组
-      - 原数组不变
+      - 未被赋值的项不会被调用
+      
+      - 案例
+        let newArr = arr.map((currentValue, index, array) => {
+          // currentValue 当前元素值
+          // index        当前元素索引
+          // array        当前数组
+          // thisArg      执行回调函数的this指向
+        }, thisArg)
     
+
     3. filter
       - 过滤器
-      - @params 回调函数, 在回调函数中添加判读逻辑，返回符合逻辑的数据
+      - @params 
+        1. 回调函数, 在回调函数中添加判读逻辑，返回符合逻辑的数据
+          // element 当前元素
+          // index   当前元素的索引
+          // array   当前数组
+        2. 回调函数this指向
+          // thisArg 执行callback时，用于this的值
       - @return 返回所有符合条件的新数组
-      - 原数组不变
+      - 未被赋值的项不会被调用
+
+      - 案例
+        let newArr = arr.filter((element, index, array) => {
+          // element 当前元素
+          // index   当前元素的索引
+          // array   当前数组
+          // thisArg 执行callback时，this的指向
+        }, thisArg)
+
 
     4. find
       - 查找
-      - @params 回调函数, 在回调函数中添加判读逻辑，返回符合逻辑的数据
-      - @return 返回第一个符合条件的内容
-      - 原数组不变
+      - @params
+        1. 回调函数
+          // element 当前元素
+          // index   当前元素的索引
+          // array   数组本身
+        2. 回调函数的this指向
+          // thisArg 执行callback时，this的指向
+      - @return 返回第一个符合条件的值，否则返回undefined
+      - 根据索引进行遍历，未被赋值的也会被遍历，原数组不变
+      
+      - 案例
+        const found = arr.find((element, index, array) => {
+          // element 当前元素
+          // index   当前元素的索引
+          // array   数组本身
+          // thisArg 执行callback时，this的指向
+        }, thisArg)
 
     5. reduce
       - 汇总
+      - @params 
+        1. 回调函数
+          // previousValue 上一次回调函数的返回值，在第一次调用时，若指定初始值则值为初始值，否则数组索引为0的元素
+          // currentValue  当前元素，第一次调用时，若指定初始值则为索引为0的元素，否则为索引为1的元素
+          // currentIndex  当前索引，若指定了初始值索引为0，否则从索引1开始
+          // array         用于遍历的数组
+        2. 初始值
+          // initialValue  初始值，指定了初始值赋值给previousValue，否则将使用数组第一个元素
+      - @return 使用回调函数遍历整个数组后的结果
+      - 未被赋值的项不会被调用
+      
+      - 案例
+        arr.reduce((previousValue, currentValue, currentIndex, array) => {
+          // previousValue 上一次回调函数的返回值，在第一次调用时，若指定初始值则值为初始值，否则数组索引为0的元素
+          // currentValue  当前元素，第一次调用时，若指定初始值则为索引为0的元素，否则为索引为1的元素
+          // currentIndex  当前索引，若指定了初始值索引为0，否则从索引1开始
+          // array         用于遍历的数组
+          // initialValue  初始值，指定了初始值赋值给previousValue，否则将使用数组第一个元素
+        }, initialValue)
 
     6. some
       - 部分
-      - @params 回调函数，判断逻辑，如果有一项匹配则返回true
-      - @return 返回boolean
-      - 原数组不变
+      - @params
+        1. 回调函数
+          // element 当前元素
+          // index   当前元素的索引
+          // array   被调用的数组
+        2. 回调函数this指向
+          // thisArg 执行回调函数的this指向
+      - @return 至少一个元素通过回调函数的测试就返回true，都没通过返回false
+      - 未赋值的索引不会调用，原数组不变
+
+      - 案例
+        const boo = arr.some((element, index, array) => {
+          // element 当前元素
+          // index   当前元素的索引
+          // array   被调用的数组
+          // thisArg 执行回调函数的this指向
+        }, thisArg)
 
     7. every
-      - 每一个
-      - @params 回调函数，判断逻辑，全部匹配才返回true
+      - 数组每一个执行回调函数返回true
+      - @params
+        1. 回调函数，判断逻辑，全部匹配才返回true
+          // element 当前值
+          // index   当前值的索引
+          // array   当前数组
+        2. this指向
+          // thisArg 执行回调函数this指向
       - @return 返回boolean
-      - 原数组不变
-    
+      - 未被赋值的索引不会被调用，原数组不变，回调函数，需要返回true才会继续处理
+      
+      - 案例
+        const boo = arr.every((element, index, array) => {
+          // element 当前值
+          // index   当前值的索引
+          // array   当前数组
+          // thisArg 执行回调函数this指向
+        }, thisArg)
 
     
     
