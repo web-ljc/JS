@@ -51,3 +51,38 @@ let fn = (...args) => {
   console.log(args)
 }
 fn(10, 20, 30)
+
+
+/* 
+  1. 指数运算符
+    2**3**2 // 2 ** (3 ** 2)
+
+  2. 链判断运算符
+    - ?.运算符，直接在链式调用的时候判断，左侧的对象是否为null或undefined， 如果是的，就不再往下运算，而是返回undefined
+      const firstName = message?.body?.user?.firstName || 'default'
+    - 如果有定义方法，就会调用该方法，否则返回undefined，不在执行?.后面的部分  
+      iterator.return?.()
+    - 三种写法
+      - obj?.prop // 对象属性是否存在
+      - obj.[expr] // 同上
+      - func?.(...args) // 函数或对象方法是否存在
+
+  3. Null判断运算符
+    - Null判断运算符 ?? ，它的行为类似于 ||，但是只有运算符左侧的值为null 或 undefined时，才返回右侧的值
+    - 多个逻辑运算符一起使用，必须用括号表明优先级，否则会报错
+
+  4. 逻辑赋值运算符
+    - 或赋值运算符
+      x ||= y  // x || (x = y)
+    - 与赋值运算符
+      x &&= y  // x && (x = y)
+    - null赋值运算符
+      x ??= y  // x ?? (x = y)
+
+*/
+
+// 只要属性a值为null、undefined、false、0时，默认值就会生效
+// let boo = a || true
+
+// 只要属性a值为null、undefined时，默认值才会生效
+// let boo = a ?? true
