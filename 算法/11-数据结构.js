@@ -18,42 +18,23 @@
       - isEmpty 是否是空
       - clear 移除所有元素
       - size  元素个数
+
+  ## 队列
+    先进先出
+    - enqueue 入列
+    - dequeue 出列
+    - front   最前的元素
+    - isEmpty 是否为空
+    - size    列的长度
+    
+  ## 链表
+    链表时有序的：不一定是连续的存储空间
+    - append   往链表尾部添加元素
+    - insert   特定位置添加
+    - remove   根据内容移除项
+    - removeAt 根据索引移除项
+    - indexOf  找到索引
+    - isEmpty  判断链表是否为空
+    - size     链表长度
 */
 
-// 单例设计模式
-const Stack = (function() {
-  // 私有成员 weakMap
-  const _items = new WeakMap()
-  console.log(_items);
-
-  const Stack = function() {
-    // this.items = []
-    _items.set(this, [])
-  }
-  
-  Stack.prototype.push = function(elem) {
-    // this.items.push(elem)
-    _items.get(this).push(elem)
-  }
-  
-  Stack.prototype.pop = function(elem) {
-    // return this.items.pop(elem)
-    return _items.get(this).pop(elem)
-  }
-  
-  Stack.prototype.peek = function() {
-    // return this.items[this.items.length - 1]
-    return _items.get(this)[_items.get(this).length - 1]
-  }
-  
-  Stack.prototype.size = function() {
-    return _items.get(this).length
-  }
-  return Stack
-})()
-
-const stack = new Stack()
-const stack2 = new Stack()
-stack.push(1)
-stack.push(2)
-console.log(stack, stack2);
