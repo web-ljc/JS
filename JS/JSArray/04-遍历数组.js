@@ -177,6 +177,21 @@ console.info(arr3, a) // 3
           // thisArg 执行回调函数this指向
         }, thisArg)
 
-    
+
+    forEach() / filter() / reduce() / every() / some() 都会跳过空位
+    map() 会跳过空位，但会保留这个值
+    entries() / keys() / valuse() / find() / findeIndex() 不会跳过空位，会将空位处理成undefined
     
 */
+
+
+// [, 'a'].forEach((x, i) => console.log(i)) // 1
+// [1, ,2].filter(x => true) // [1, 2]
+// [, 1].every(x => x === 1) // true
+// [, 1].some(x => x !== 1) // false
+// [1, ,2].reduce((x, y) => x+y) // 3
+
+// [, 1].map(x => 1) // [, 1]
+
+// [ , 1, undefined, null].join('#') // '#a##'
+// [ , 1, undefined, null].toString() // ',a,,'
