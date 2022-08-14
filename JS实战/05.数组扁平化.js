@@ -8,3 +8,6 @@ let arr = str.split(',')
 arr = arr.map(item => parseInt(item))
 // 打印
 console.info(arr)
+
+
+a.flat(2)
